@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.hisu.retrofit.MainActivity;
 import com.hisu.retrofit.R;
 import com.hisu.retrofit.databinding.FragmentUserProfileBinding;
 import com.hisu.retrofit.model.User;
@@ -19,6 +20,7 @@ public class UserProfileFragment extends Fragment {
     private static final String USER_KEY = "github_user";
     private FragmentUserProfileBinding binding;
     private String[] month;
+    private MainActivity mainActivity;
 
     public UserProfileFragment(User user) {
         Bundle bundle = new Bundle();
@@ -33,6 +35,8 @@ public class UserProfileFragment extends Fragment {
         binding = FragmentUserProfileBinding.inflate(
                 inflater, container, false
         );
+
+        mainActivity = (MainActivity) getActivity();
 
         User user = (User) (
                 getArguments() != null ? getArguments().getSerializable(USER_KEY) : null
@@ -65,6 +69,8 @@ public class UserProfileFragment extends Fragment {
         binding.txtTwitter.setText(validateData(user.getTwitter(), "No Twitter"));
 
         binding.txtBlog.setText(validateData(user.getBlog(), "No Blog"));
+
+        mainActivity.closePB();
     }
 
     private String validateData(String data, String msg) {
